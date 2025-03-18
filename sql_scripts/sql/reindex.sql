@@ -1,0 +1,8 @@
+SET SQL_SAFE_UPDATES = 0;
+ALTER TABLE chatdb.messages DROP COLUMN id;
+ALTER TABLE chatdb.messages CHANGE new_id id INT NOT NULL AUTO_INCREMENT PRIMARY KEY;
+ALTER TABLE chatdb.messages AUTO_INCREMENT = 1;
+SELECT * FROM chatdb.messages;
+SET SQL_SAFE_UPDATES = 1;
+
+
