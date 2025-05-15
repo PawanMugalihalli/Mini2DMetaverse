@@ -1,9 +1,6 @@
 package com.pawan.websockets.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -17,8 +14,9 @@ import java.util.UUID;
 @Table(name="chatroom")
 public class ChatRoom {
     @Id
-    @Column(name="roomId",unique = true,nullable = false)
-    private String roomId= UUID.randomUUID().toString();
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer id;
+    private String roomId;
     @Column(name="roomName", nullable = false)
     private String roomName;
     @Column(name="createdBy",nullable =false)
@@ -32,5 +30,6 @@ public class ChatRoom {
         this.createdBy = createdBy;
         this.isPrivate = isPrivate;
     }
+
 
 }

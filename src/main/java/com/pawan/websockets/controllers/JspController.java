@@ -58,7 +58,7 @@ public class JspController {
         List<Messages> messages=repoService.findAllByRoomId(roomId);
         List<TicTacToe> ticTacToes=ticTacToeService.findAllByRoomId(roomId);
         List<PlayerDto> players= playerDtoService.findAllByRoomId(roomId);
-        Optional<ChatRoom> chatRoom=repoService.findById(roomId);
+        Optional<ChatRoom> chatRoom=repoService.findByRoomId(roomId);
         String createdBy=chatRoom.get().getCreatedBy();
         model.addAttribute("players",players);
         model.addAttribute("ticTacToes",ticTacToes);

@@ -75,8 +75,8 @@ public class RepoServiceImpl implements RepoService{
         return chatRoomRepo.findAll();
     }
 
-    public Optional<ChatRoom> findById(String id){
-        return chatRoomRepo.findById(id);
+    public Optional<ChatRoom> findByRoomId(String id){
+        return chatRoomRepo.findByRoomId(id);
     }
 
     @Override

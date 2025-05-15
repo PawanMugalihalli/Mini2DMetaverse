@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 @org.springframework.web.bind.annotation.RestController
 public class RestController {
@@ -19,16 +20,19 @@ public class RestController {
     @Autowired
     RepoService repoService;
     @PostMapping("/chat-lobby/create")
-    public void create(HttpSession session, @RequestBody ChatRoom room){
-        Authentication authentication= SecurityContextHolder.getContext().getAuthentication();
-        if(authentication!=null && authentication.isAuthenticated()) {
-            String username;
-            username = authentication.getName();
-            System.out.println(room.getIsPrivate());
-            ChatRoom chatRoom = new ChatRoom(room.getRoomName(), username,room.getIsPrivate());
-            repoService.save(chatRoom);
+    public void create(HttpSession session, @RequestBody ChatRoom roomRequest) {
+        System.out.println(roomRequest.getCreatedBy());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (authentication != null && authentication.isAuthenticated()) {
+            String username = authentication.getName();
+            String roomId = UUID.randomUUID().toString();
+            roomRequest.setCreatedBy(username);
+            roomRequest.setRoomId(roomId);
+            repoService.save(roomRequest);
         }
     }
+
+
 
     @DeleteMapping("/chat-lobby/delete/{room_id}")
     public void delete(HttpSession session, @PathVariable String room_id){
@@ -36,7 +40,7 @@ public class RestController {
         if(authentication!=null && authentication.isAuthenticated()){
             String username;
             username=authentication.getName();
-            Optional<ChatRoom> chatRoom=repoService.findById(room_id);
+            Optional<ChatRoom> chatRoom=repoService.findByRoomId(room_id);
             String createdBy=chatRoom.get().getCreatedBy();
             if(createdBy.equals(username)){
                 repoService.delete(chatRoom.get());

@@ -30,7 +30,7 @@ public interface RepoService {
 
     List<ChatRoom> findAll();
 
-    public Optional<ChatRoom> findById(String id);
+    public Optional<ChatRoom> findByRoomId(String id);
 
     void delete(ChatRoom room);
 
