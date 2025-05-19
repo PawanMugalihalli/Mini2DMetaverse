@@ -16,10 +16,10 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/contact", "/register", "/login", "/logout", "/home").permitAll()
-                        .requestMatchers("/chatBox","/chat-lobby/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/ws/**").permitAll()  // Allow WebSocket handshake without authentication
-                        .anyRequest().authenticated()
+//                        .requestMatchers("/", "/contact", "/register", "/login", "/logout", "/home").permitAll()
+                        //.requestMatchers("/chatBox","/chat-lobby/**").hasAnyRole("USER", "ADMIN")
+//                        .requestMatchers("/ws/**").permitAll()  // Allow WebSocket handshake without authentication
+                        .anyRequest().permitAll()
                 )
                 .csrf(csrf->csrf.ignoringRequestMatchers("/ws/**","/chat-lobby/**","chatBox/**"))
                 .formLogin(form -> form
